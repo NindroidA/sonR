@@ -1,11 +1,3 @@
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react/jsx-closing-bracket-location */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable object-curly-newline */
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable max-len */
 import type React from 'react';
 import { useEffect, useRef } from 'react';
 import { Animated, Platform, StyleSheet, View } from 'react-native';
@@ -108,13 +100,14 @@ const Sonar: React.FC<SonarProps> = ({ size = 300, color = '#00ffff' }) => {
   );
 };
 
+// styles
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
   },
 });
 
-// Add this if you're using React Native for Web
+// native web compatibility
 if (Platform.OS === 'web') {
   const style = document.createElement('style');
   style.textContent = `
