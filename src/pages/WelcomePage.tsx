@@ -1,7 +1,6 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-plusplus */
-// WelcomePage.tsx
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -32,8 +31,8 @@ export const WelcomePage: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Sonar size={300} color="#00ff00" />
-        <TypeWriter text="Welcome to sonR" delay={100} />
+        <Sonar size={300} color="#00ffff" />
+        <TypeWriter text="Welcome to sonR" delay={125} />
       </View>
     </View>
   );
@@ -42,7 +41,7 @@ export const WelcomePage: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212', // Dark background
+    backgroundColor: '#121212',
   },
   content: {
     flex: 1,
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#00ff00',
-    fontSize: 24,
+    fontSize: 28,
     marginTop: 20,
     fontFamily: 'monospace',
   },

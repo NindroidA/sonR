@@ -7,6 +7,12 @@ const Home = () => (
     <Stack.Screen
       options={{
         title: 'Welcome',
+        headerTitleStyle: {
+          color: '#ffffff'
+        },
+        headerStyle: {
+          backgroundColor: '#121212',
+        }
       }}
     />
     <WelcomePage />

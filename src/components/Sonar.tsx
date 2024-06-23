@@ -1,102 +1,129 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable object-curly-newline */
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable max-len */
 import type React from 'react';
 import { useEffect, useRef } from 'react';
-import { Animated, View } from 'react-native';
-import Svg, { Circle, Line } from 'react-native-svg';
+import { Animated, Platform, StyleSheet, View } from 'react-native';
+import Svg, { Circle, G, Line, Path, Text } from 'react-native-svg';
 
 interface SonarProps {
   size?: number;
   color?: string;
 }
 
-const Sonar: React.FC<SonarProps> = ({ size = 300, color = '#00ff00' }) => {
+const Sonar: React.FC<SonarProps> = ({ size = 300, color = '#00ffff' }) => {
+  const viewBox = "0 0 100 100";
   const rotateAnimation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.loop(
       Animated.timing(rotateAnimation, {
         toValue: 1,
-        duration: 4000,
-        useNativeDriver: true,
+        duration: 3750,
+        useNativeDriver: Platform.OS !== 'web',
       })
     ).start();
   }, []);
 
-  const rotate = rotateAnimation.interpolate({
+  const rotateDegree = rotateAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg'],
   });
 
+  const SweepComponent = () => (
+    <G>
+      <Path
+        d="M50,50 L50,0 A50,50 0 0,1 75,6.7 z"
+        fill={color}
+        opacity="0.7"
+      />
+    </G>
+  );
+
   return (
-    <View style={{ width: size, height: size }}>
-      <Svg width={size} height={size}>
-        {/* Static circle outline */}
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={size / 2 - 2}
-          stroke="#333"
-          strokeWidth="2"
-          fill="none"
-        />
-        {/* X and Y axes */}
-        <Line
-          x1={0}
-          y1={size / 2}
-          x2={size}
-          y2={size / 2}
-          stroke="#333"
-          strokeWidth="1"
-        />
-        <Line
-          x1={size / 2}
-          y1={0}
-          x2={size / 2}
-          y2={size}
-          stroke="#333"
-          strokeWidth="1"
-        />
-        {/* Concentric circles */}
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={size / 3}
-          stroke="#333"
-          strokeWidth="1"
-          fill="none"
-        />
-        <Circle
-          cx={size / 2}
-          cy={size / 2}
-          r={size / 6}
-          stroke="#333"
-          strokeWidth="1"
-          fill="none"
-        />
+    <View style={[styles.container, { width: size, height: size }]}>
+      <Svg width={size} height={size} viewBox={viewBox}>
+        {/* background */}
+        <Circle cx="50" cy="50" r="50" fill="#001a1a" />
+
+        {/* grid lines */}
+        <G stroke={color} strokeWidth="0.2" opacity="0.5">
+          {[...Array(10)].map((_, i) => (
+            <Circle key={i} cx="50" cy="50" r={5 * (i + 1)} fill="none" />
+          ))}
+          {[...Array(12)].map((_, i) => (
+            <Line
+              key={i}
+              x1="50"
+              y1="50"
+              x2={50 + 50 * Math.sin((i * Math.PI) / 6)}
+              y2={50 - 50 * Math.cos((i * Math.PI) / 6)}
+            />
+          ))}
+        </G>
+
+        {/* degree markings */}
+        <G fill={color} fontSize="3">
+          {[...Array(12)].map((_, i) => (
+            <Text
+              key={i}
+              x={50 + 45 * Math.sin((i * Math.PI) / 6)}
+              y={50 - 45 * Math.cos((i * Math.PI) / 6)}
+              textAnchor="middle"
+              alignmentBaseline="central"
+            >
+              {(i * 30 + 360) % 360}
+            </Text>
+          ))}
+        </G>
+
+        {/* rotating sweep */}
+        {Platform.OS === 'web' ? (
+          <G style={{ transformOrigin: 'center', animation: 'rotate 4s linear infinite' }}>
+            <SweepComponent />
+          </G>
+        ) : (
+          <Animated.View style={{
+            position: 'absolute',
+            width: size,
+            height: size,
+            transform: [{ rotate: rotateDegree }],
+          }}>
+            <Svg width={size} height={size} viewBox="0 0 100 100">
+              <SweepComponent />
+            </Svg>
+          </Animated.View>
+        )}
+
+        {/* blips */}
+        <Circle cx="70" cy="30" r="1" fill={color} />
+        <Circle cx="60" cy="60" r="1" fill={color} />
       </Svg>
-      <Animated.View
-        style={{
-          position: 'absolute',
-          width: size,
-          height: size,
-          transform: [{ rotate }],
-        }}
-      >
-        <Svg width={size} height={size}>
-          <Line
-            x1={size / 2}
-            y1={size / 2}
-            x2={size / 2}
-            y2={0}
-            stroke={color}
-            strokeWidth="2"
-          />
-        </Svg>
-      </Animated.View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+  },
+});
+
+// Add this if you're using React Native for Web
+if (Platform.OS === 'web') {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  `;
+  document.head.append(style);
+}
 
 export default Sonar;
