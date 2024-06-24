@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "scheme": "myapp",
+    "scheme": "sonr",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -16,7 +16,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.github.nindroida",
-      "backgroundColor": "121212"
+      "backgroundColor": "#121212"
     },
     "android": {
       "adaptiveIcon": {
