@@ -4,29 +4,29 @@
     "slug": "sonR",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/sonR-Images/radar-bleen/radar-bleen-256.png",
     "userInterfaceStyle": "dark",
     "scheme": "sonr",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/sonR-Images/radar-bleen/radar-bleen-256.png",
       "resizeMode": "contain",
-      "backgroundColor": "#121212"
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.github.nindroida",
-      "backgroundColor": "#121212"
+      "backgroundColor": "#ffffff"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#121212"
+        "backgroundColor": "#ffffff"
       },
       "package": "com.github.nindroida"
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/sonR-Images/satellite-round/satellite-round-48.png",
       "bundler": "metro"
     },
     "plugins": ["@config-plugins/detox", "expo-router"]
