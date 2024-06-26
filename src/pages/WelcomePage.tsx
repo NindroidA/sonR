@@ -24,7 +24,7 @@ export const WelcomePage: React.FC = () => {
   };
 
   const navigateToHomePage = () => {
-    router.push('/home');
+    router.push('/track');
   };
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
