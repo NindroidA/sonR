@@ -29,6 +29,7 @@
     "@react-navigation/native": "^6.1.17",
     "@react-three/drei": "^9.107.0",
     "@react-three/fiber": "^8.16.8",
+    "camera-controls": "^2.8.5",
     "expo": "^51.0.14",
     "expo-asset": "^10.0.9",
     "expo-constants": "~16.0.2",

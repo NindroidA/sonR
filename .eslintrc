@@ -2,7 +2,6 @@
   "extends": ["airbnb-base"],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "off",
-    "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "off",
   },
   "overrides": [
@@ -55,9 +54,10 @@
           "LabeledStatement",
           "WithStatement",
         ],
+        "no-trailing-spaces": "off",
         "import/prefer-default-export": "off",
-        "simple-import-sort/imports": "error",
-        "simple-import-sort/exports": "error",
+        "simple-import-sort/imports": "warn",
+        "simple-import-sort/exports": "warn",
         "@typescript-eslint/no-unused-vars": "off",
         "object-curly-newline": "off",
         "max-len": "off",
